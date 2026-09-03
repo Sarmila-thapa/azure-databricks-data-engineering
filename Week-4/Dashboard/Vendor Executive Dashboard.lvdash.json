@@ -1,0 +1,405 @@
+{
+  "datasets": [
+    {
+      "name": "vendor_executive_dashboard",
+      "displayName": "Vendor Executive Dashboard",
+      "queryLines": [
+        "SELECT\n",
+        "  order_date,\n",
+        "  order_id,\n",
+        "  customer_name,\n",
+        "  country,\n",
+        "  city,\n",
+        "  product_name,\n",
+        "  category,\n",
+        "  quantity,\n",
+        "  price,\n",
+        "  sales_amount\n",
+        "FROM\n",
+        "  vendor_catalog.gold.vendor_order_sales_gold"
+      ],
+      "catalog": "vendor_catalog",
+      "schema": "gold"
+    }
+  ],
+  "relationshipGraphs": [
+    {
+      "sources": [
+        {
+          "name": "Vendor_Executive_Dashboard",
+          "datasetName": "vendor_executive_dashboard"
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "ff13577c",
+      "displayName": "Dashboard",
+      "layout": [
+        {
+          "widget": {
+            "name": "total_sales",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "fields": [
+                    {
+                      "name": "sum(Vendor_Executive_Dashboard__sales_amount)",
+                      "expression": "SUM(`Vendor_Executive_Dashboard`.`sales_amount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Total Sales"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(Vendor_Executive_Dashboard__sales_amount)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "total_orders",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "fields": [
+                    {
+                      "name": "countdistinct(Vendor_Executive_Dashboard__order_id)",
+                      "expression": "COUNT(DISTINCT `Vendor_Executive_Dashboard`.`order_id`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Total Orders"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(Vendor_Executive_Dashboard__order_id)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 0,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "total_units",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "fields": [
+                    {
+                      "name": "sum(Vendor_Executive_Dashboard__quantity)",
+                      "expression": "SUM(`Vendor_Executive_Dashboard`.`quantity`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Total Units"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(Vendor_Executive_Dashboard__quantity)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "sales_by_category",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "fields": [
+                    {
+                      "name": "Vendor_Executive_Dashboard__category",
+                      "expression": "`Vendor_Executive_Dashboard`.`category`"
+                    },
+                    {
+                      "name": "sum(Vendor_Executive_Dashboard__sales_amount)",
+                      "expression": "SUM(`Vendor_Executive_Dashboard`.`sales_amount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Sales by Category"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Vendor_Executive_Dashboard__category",
+                  "displayName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Vendor_Executive_Dashboard__sales_amount)",
+                  "displayName": "sales_amount",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Vendor_Executive_Dashboard__category",
+                  "displayName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 6,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "sales_by_country",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "fields": [
+                    {
+                      "name": "Vendor_Executive_Dashboard__country",
+                      "expression": "`Vendor_Executive_Dashboard`.`country`"
+                    },
+                    {
+                      "name": "sum(Vendor_Executive_Dashboard__sales_amount)",
+                      "expression": "SUM(`Vendor_Executive_Dashboard`.`sales_amount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Sales by Country"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Vendor_Executive_Dashboard__country",
+                  "displayName": "country",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Vendor_Executive_Dashboard__sales_amount)",
+                  "displayName": "sales_amount",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Vendor_Executive_Dashboard__country",
+                  "displayName": "country",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 6,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "order_details",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "fields": [
+                    {
+                      "name": "Vendor_Executive_Dashboard__order_date",
+                      "expression": "`Vendor_Executive_Dashboard`.`order_date`"
+                    },
+                    {
+                      "name": "Vendor_Executive_Dashboard__order_id",
+                      "expression": "`Vendor_Executive_Dashboard`.`order_id`"
+                    },
+                    {
+                      "name": "Vendor_Executive_Dashboard__customer_name",
+                      "expression": "`Vendor_Executive_Dashboard`.`customer_name`"
+                    },
+                    {
+                      "name": "Vendor_Executive_Dashboard__country",
+                      "expression": "`Vendor_Executive_Dashboard`.`country`"
+                    },
+                    {
+                      "name": "Vendor_Executive_Dashboard__city",
+                      "expression": "`Vendor_Executive_Dashboard`.`city`"
+                    },
+                    {
+                      "name": "Vendor_Executive_Dashboard__product_name",
+                      "expression": "`Vendor_Executive_Dashboard`.`product_name`"
+                    },
+                    {
+                      "name": "Vendor_Executive_Dashboard__category",
+                      "expression": "`Vendor_Executive_Dashboard`.`category`"
+                    },
+                    {
+                      "name": "Vendor_Executive_Dashboard__quantity",
+                      "expression": "`Vendor_Executive_Dashboard`.`quantity`"
+                    },
+                    {
+                      "name": "Vendor_Executive_Dashboard__sales_amount",
+                      "expression": "`Vendor_Executive_Dashboard`.`sales_amount`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Order Details",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "Vendor_Executive_Dashboard__order_date"
+                  },
+                  {
+                    "fieldName": "Vendor_Executive_Dashboard__order_id"
+                  },
+                  {
+                    "fieldName": "Vendor_Executive_Dashboard__customer_name"
+                  },
+                  {
+                    "fieldName": "Vendor_Executive_Dashboard__country"
+                  },
+                  {
+                    "fieldName": "Vendor_Executive_Dashboard__city"
+                  },
+                  {
+                    "fieldName": "Vendor_Executive_Dashboard__product_name"
+                  },
+                  {
+                    "fieldName": "Vendor_Executive_Dashboard__category"
+                  },
+                  {
+                    "fieldName": "Vendor_Executive_Dashboard__quantity"
+                  },
+                  {
+                    "fieldName": "Vendor_Executive_Dashboard__sales_amount"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 12,
+            "height": 5
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
